@@ -170,7 +170,68 @@ function startApp() {
             createTeam();
         });
     }
-    
+    // create an Intern if chosen by user
+    function createIntern() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "internsName",
+                message: "What is the intern's name ?",
+                validate: answer => {
+                    if (answer) {
+                        return true;
+                    } else {
+                        console.log("Please enter the Intern's name !");
+                        return false;
+                    }
+                }
+            },
+            {
+                type: "input",
+                name: "internsId",
+                message: "What is the intern's ID ?",
+                validate: answer => {
+                    if (answer) {
+                        return true;
+                    } else {
+                        console.log("Please enter the Intern's ID!");
+                        return false;
+                    }
+                }
+            }, 
+            {
+                type: "input",
+                name: "internsEmail",
+                message: "What is the intern's email ?",
+                validate: answer => {
+                    if (answer) {
+                        return true;
+                    } else {
+                        console.log("Please enter an email for the Intern !");
+                        return false;
+                    }
+                }
+            },
+            {
+                type: "input",
+                name: "internsSchool",
+                message: "What is the intern's school ?",
+                validate: answer => {
+                    if (answer) {
+                        return true;
+                    } else {
+                        console.log("Please enter a school for the Intern !");
+                        return false;
+                    }
+                }
+            }
+        ]).then(answers => {
+            const intern = new Intern(answers.internsName, answers.internsId, answers.internsEmail, answers.internsSchool);
+            teamArray.push(intern);
+            idArray.push(answers.internsId);
+            createTeam();
+        });
+    }
 }
 
 
