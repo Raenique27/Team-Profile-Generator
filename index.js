@@ -2,7 +2,6 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 
-const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
@@ -232,6 +231,18 @@ function startApp() {
             createTeam();
         });
     }
+    function renderHTML() {
+        // create dist directory for index.html if it does not exist
+        if (!fs.existsSync(DIST_DIR)) {
+            fs.mkdirSync(DIST_DIR)
+        }
+        console.log("Creating Team Profile... ");
+        fs.writeFileSync(outputPath, createHtml(teamArray), "utf-8");
+    }
+
+    createManager();
 }
+
+startApp();
 
 
