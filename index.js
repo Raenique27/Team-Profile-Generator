@@ -22,7 +22,7 @@ function startApp() {
     // Prompt user to make a team manager when app starts
     function createManager() {
         console.log('Build your team profile');
-        inquirer.createPromptModule([
+        inquirer.prompt([
             {
                 type: "input",
                 name: "managersName",
@@ -84,7 +84,7 @@ function startApp() {
     }
     // createTeam function after user is done createManager
     function createTeam() {
-        inquirer.createPromptModule([
+        inquirer.prompt([
             {
                 type: "list",
                 name: "teamList",   
@@ -108,6 +108,69 @@ function startApp() {
             }
         });
     }
+    // create an Engineer if chosen by user
+    function createEngineer() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "engineersName",
+                message: "What is the engineer's name ?",
+                validate: answer => {
+                    if (answer) {
+                        return true;
+                    } else {
+                        console.log("Please enter engineer's name !");
+                        return false;
+                    }
+                }
+            },
+            {
+                type: "input",
+                name: "engineersId",
+                message: "What is the engineer's Id ?",
+                validate: answer => {
+                    if (answer) {
+                        return true;
+                    } else {
+                        console.log("Please enter an Id for the engineer!");
+                        return false;
+                    }
+                }
+            },
+            {
+                type: "input",
+                name: "engineersEmail",
+                message: "What is the engineer's email?",
+                validate: answer => {
+                    if (answer) {
+                        return true;
+                    } else {
+                        console.log("Please enter an email for the engineer!");
+                        return false;
+                    }
+                }
+            },
+            {
+                type: "input",
+                name: "engineersGithub",
+                message: "What is the engineer's Github username? ",
+                validate: answer => {
+                    if (answer) {
+                        return true;
+                    } else {
+                        console.log("Please enter the engineer's Github username !");
+                        return false;
+                    }
+                }
+            }
+        ]).then(answers => {
+            const engineer = new Engineer(answers.engineersName, answers.engineersId, answers.engineersEmail, answers.engineersGithub);
+            teamArray.push(engineer);
+            idArray.push(answers.engineersId);
+            createTeam();
+        });
+    }
+    
 }
 
 
