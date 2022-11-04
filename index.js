@@ -19,7 +19,7 @@ const idArray = [];
 //Start application
 function startApp() {
 
-    // Prompt user to make a manager when app starts
+    // Prompt user to make a team manager when app starts
     function createManager() {
         console.log('Build your team profile');
         inquirer.createPromptModule([
@@ -80,6 +80,32 @@ function startApp() {
             teamArray.push(manager);
             idArray.push(answers.managersId);
             createTeam();
+        });
+    }
+    // createTeam function after user is done createManager
+    function createTeam() {
+        inquirer.createPromptModule([
+            {
+                type: "list",
+                name: "teamList",   
+                message: "What would you like to create next ?",
+                choices: [
+                    "Intern",
+                    "Engineer",
+                    "Quit"
+                ]            
+            }
+        ]).then(userAnswer => {
+            switch (userAnswer.teamList) {
+                case "Intern":
+                    createIntern();
+                    break;
+                case "Engineer":
+                    createEngineer();
+                    break;
+                default:
+                     renderHTML();
+            }
         });
     }
 }
